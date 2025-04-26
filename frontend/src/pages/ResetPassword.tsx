@@ -2,49 +2,34 @@ import styled from "styled-components";
 import Title from "../components/common/Title";
 import InputText from "../components/common/InputText";
 import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
-import React, { use, useState } from "react";
-import {useForm} from "react-hook-form";
-import { resetPassword, resetRequest, signup } from "../api/auth.api";
-import { useAlert } from "../hooks/useAlert";
+import { Link} from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { SignupStyle } from "./Signup";
-
+import { useAuth } from "@/hooks/useAuth";
 
 export interface SignupProps {
-    email: string;
-    password: string;   
+  email: string;
+  password: string;
 }
 
-function ResetPassword () {
+function ResetPassword() {
+  const { userResetPassword, userResetRequest, resetRequested } = useAuth();
 
-  const navigate = useNavigate();
-  const {showAlert} = useAlert();
-  const [resetRequested, setResetRequested] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupProps>();
 
-    const {
-        register, 
-        handleSubmit, 
-        formState: {errors}, 
-    } = useForm<SignupProps>();
+  const onSubmit = (data: SignupProps) => {
+    // if (resetRequested) {
+    //   userResetPassword(data);
+    // } else {
+    //   userResetRequest(data);
+    // }
 
-    const onSubmit = (data: SignupProps) => {
-        signup(data).then((res) => {
-            showAlert("회원가입이 완료되었습니다.");
-            navigate("/login");
-        })
-        if(resetRequested){
-            // 초기화
-            resetPassword(data).then(() => {
-                showAlert("비밀번호가 초기화되었습니다.");
-                navigate("/login");
-            })
-        }else{
-            // 요청
-            resetRequest(data).then(()=>{
-                setResetRequested(true);
-            });
-        }
-    };
+    resetRequested ? userResetPassword(data) : userResetRequest(data);
+  };
 
   return (
     <>
@@ -52,22 +37,28 @@ function ResetPassword () {
       <SignupStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset>
-            <InputText placeholder="이메일" inputType="email"
-            // value={email} onChange={(e)=>setEmail(e.target.value)}
-            {...register("email", {required: true})}
-             />
-             {errors.email && <p className="error-text">이메일을 입력하세요</p>}  
+            <InputText
+              placeholder="이메일"
+              inputType="email"
+              // value={email} onChange={(e)=>setEmail(e.target.value)}
+              {...register("email", { required: true })}
+            />
+            {errors.email && <p className="error-text">이메일을 입력하세요</p>}
           </fieldset>
 
-            {resetRequested && (
-          <fieldset>
-            <InputText placeholder="비밀번호" inputType="password"
-            // value={password} onChange={(e)=>setPassword(e.target.value)}
-            {...register("password", {required: true})}
-            />
-            {errors.password && <p className="error-text">비밀번호를 입력하세요</p>}
-          </fieldset>
-            )}
+          {resetRequested && (
+            <fieldset>
+              <InputText
+                placeholder="비밀번호"
+                inputType="password"
+                // value={password} onChange={(e)=>setPassword(e.target.value)}
+                {...register("password", { required: true })}
+              />
+              {errors.password && (
+                <p className="error-text">비밀번호를 입력하세요</p>
+              )}
+            </fieldset>
+          )}
 
           <fieldset>
             <Button type="submit" size="medium" scheme="primary">
