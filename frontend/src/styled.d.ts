@@ -5,6 +5,8 @@ import type {
   HeadingSize,
   ButtonSize,
   ButtonScheme,
+  LayoutWidth,     
+  MediaQuery  
 } from "./style/theme";
 
 declare module "styled-components" {
@@ -35,6 +37,9 @@ declare module "styled-components" {
       width: {
         [key in LayoutWidth]: string;
       };
+    };
+    mediaQuery: {
+      [key in MediaQuery]: string;
     };
   }
 }

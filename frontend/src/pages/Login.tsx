@@ -40,6 +40,7 @@ function Login() {
               inputType="email"
               // value={email} onChange={(e)=>setEmail(e.target.value)}
               {...register("email", { required: true })}
+              inputMode="email"
             />
             {errors.email && <p className="error-text">이메일을 입력하세요</p>}
           </fieldset>
@@ -49,6 +50,7 @@ function Login() {
               inputType="password"
               // value={password} onChange={(e)=>setPassword(e.target.value)}
               {...register("password", { required: true })}
+              inputMode="text"
             />
             {errors.password && (
               <p className="error-text">비밀번호를 입력하세요</p>
