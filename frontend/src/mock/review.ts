@@ -2,23 +2,7 @@ import { BookReviewItem } from "@/models/book.model";
 import { http, HttpResponse } from "msw";
 import { fakerKO as faker } from "@faker-js/faker";
 
-// const mockReviewData: BookReviewItem[] = [
-//     {
-//         id: 1,
-//         userName: "jiwoo",
-//         content: "감사합니다",
-//         createdAt: "2025-04-28",
-//         score: 3
-//     },
-//     {
-//         id: 2,
-//         userName: "son",
-//         content: "감사",
-//         createdAt: "2025-04-29",
-//         score: 4
-//     }
-// ]
-
+// mockReviewData 생성
 const mockReviewData: BookReviewItem[] = Array.from({
   length: 8,
 }).map((_, index) => ({
@@ -26,7 +10,7 @@ const mockReviewData: BookReviewItem[] = Array.from({
   userName: `${faker.person.lastName()}$${faker.person.firstName()}`,
   content: faker.lorem.paragraph(),
   createdAt: faker.date.past().toISOString(),
-  score: faker.helpers.rangeToNumber({ min: 1, max: 5 }),
+  score: faker.number.int({ min: 1, max: 5 }),  // 수정된 부분
 }));
 
 export const reviewsById = http.get(

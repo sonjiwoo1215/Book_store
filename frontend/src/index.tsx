@@ -3,21 +3,19 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 async function mountApp() {
-  
   if (process.env.NODE_ENV === 'development') {
-    const {worker} = require('./mocks/browser');
-    worker.start();
+    const { worker } = await import('./mock/browser');
+    await worker.start();
   }
 }
 
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-mountApp();
+mountApp().then(() => {
+  const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+  );
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+});

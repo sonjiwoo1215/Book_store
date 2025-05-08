@@ -97,6 +97,13 @@ self.addEventListener('message', async function (event) {
 self.addEventListener('fetch', function (event) {
   const { request } = event
 
+  if (!request) {
+    console.error('Request is undefined');
+    return;
+  }
+
+  console.log(request.url);  
+
   // Bypass navigation requests.
   if (request.mode === 'navigate') {
     return

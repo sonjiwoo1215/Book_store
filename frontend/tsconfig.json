@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["msw"]
   },
   "extends": "./tsconfig.paths.json",
   "include": ["src", "craco.config.js"]

@@ -37,10 +37,10 @@ function Banner({ banners }: Props) {
       </BannerContainerStyle>
 
       <BannerButtonStyle>
-        <button onClick={handlePrev}>
+        <button className="prev" onClick={handlePrev}>
           <FaAngleLeft />
         </button>
-        <button onClick={handleNext}>
+        <button className="next" onClick={handleNext}>
           <FaAngleRight />
         </button>
       </BannerButtonStyle>
