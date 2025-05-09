@@ -65,7 +65,7 @@ function Cart() {
       firstBookTitle: carts[0].title,
     };
     showConfirm("주문하시겠습니까?", () => {
-      navigate("/order", { state: orderData });
+      navigate("/orders", { state: orderData });
     });
   };
 
@@ -73,7 +73,7 @@ function Cart() {
     <>
       <Title size="large">장바구니</Title>
       <CartStyle>
-        {isEmpty && (
+        {!isEmpty && (
           <>
             <div className="content">
               {carts.map((item) => (

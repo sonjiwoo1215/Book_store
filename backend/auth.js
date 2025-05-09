@@ -8,6 +8,7 @@ const ensureAuthorization = (req, res)=> {
 
         if(receivedJwt){
             let decodedJwt = jwt.verify(receivedJwt, process.env.PRIVATE_KEY);
+            console.log(decodedJwt)
             return decodedJwt;
         }else{
             throw new ReferenceError("jwt must be provided");

@@ -42,15 +42,15 @@ const routeList = [
     element: <Login />,
   },
   {
-    path: "/book/:bookId",
+    path: "/books/:bookId",
     element: <BookDetail />,
   },
   {
-    path: "/cart",
+    path: "/carts",
     element: <Cart />,
   },
   {
-    path: "/order",
+    path: "/orders",
     element: <Order />,
   },
   {

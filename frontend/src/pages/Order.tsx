@@ -9,6 +9,7 @@ import { Delivery, OrderSheet } from "../models/order.model";
 import FindAddressButton from "../components/order/FindAddressButton";
 import { order } from "../api/order.api";
 import { useAlert } from "../hooks/useAlert";
+import { useEffect } from "react";
 
 interface DeliveryForm extends Delivery {
   addressDetail: string;
@@ -19,7 +20,6 @@ function Order() {
   const navigate = useNavigate();
   const location = useLocation();
   const orderDataFromCart = location.state;
-  const { totalQuantity, totalPrice, firstBookTitle } = orderDataFromCart;
 
   const {
     register,
@@ -27,6 +27,19 @@ function Order() {
     setValue,
     formState: { errors },
   } = useForm<DeliveryForm>();
+
+  useEffect(() => {
+    if (!orderDataFromCart) {
+      showAlert("잘못된 접근입니다. 장바구니에서 주문을 진행해주세요.");
+    }
+  }, [orderDataFromCart, showAlert]);
+
+  if (!orderDataFromCart) {
+    return null; // 렌더링 중단
+  }
+
+  const { totalQuantity, totalPrice, firstBookTitle } = orderDataFromCart;
+
 
   const handlePay = (data: DeliveryForm) => {
     const orderData: OrderSheet = {
@@ -97,7 +110,7 @@ function Order() {
                 </div>
               </fieldset>
               {errors.receiver && (
-                <p className="error-text">수령인을을 입력해주세요.</p>
+                <p className="error-text">수령인을 입력해주세요.</p>
               )}
 
               <fieldset>

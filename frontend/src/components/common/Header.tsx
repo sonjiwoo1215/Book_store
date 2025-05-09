@@ -22,40 +22,53 @@ function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <HeaderStyle $isOpen={isMobileOpen}>
+    <HeaderStyle 
+    // $isOpen={isMobileOpen}
+    >
       <h1 className="logo">
         <Link to="/">
           <img src={logo} alt="book store" />
         </Link>
       </h1>
+
       <nav className="category">
-        <button
+        {/* <button
           className="menu-button"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          onClick={() => setIsMobileOpen(!isMobileOpen)
+
+          }
         >
           {isMobileOpen ? <FaAngleRight /> : <FaBars />}
-        </button>
+        </button> */}
         <ul>
           {category.map((item) => (
             <li key={item.id}>
-              <Link
+              {/* <Link
                 to={
                   item.id === null ? "/books" : `/books?category_id=${item.id}`
                 }
               >
                 {item.name}
-              </Link>
+              </Link> */}
+              <a
+                href={
+                  item.id === null ? "/books" : `/books?category_id=${item.id}`
+                }
+              >
+                {item.name}
+              </a>
             </li>
           ))}
         </ul>
       </nav>
+
       <nav className="auth">
         <Dropdown toggleButton={<FaUserCircle />}>
           <>
             {isloggedIn && (
               <ul>
                 <li>
-                  <Link to="/cart">장바구니</Link>
+                  <Link to="/carts">장바구니</Link>
                 </li>
                 <li>
                   <Link to="/orderlist">주문 내역</Link>
@@ -89,11 +102,11 @@ function Header() {
   );
 }
 
-interface HeaderStyleProps {
-  $isOpen: boolean;
-}
+// interface HeaderStyleProps {
+//   $isOpen: boolean;
+// }
 
-const HeaderStyle = styled.header<HeaderStyleProps>`
+const HeaderStyle = styled.header`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
@@ -110,7 +123,7 @@ const HeaderStyle = styled.header<HeaderStyleProps>`
     }
   }
 
-  .category {
+  /* .category {
     .menu-button {
       display: none;
     }
@@ -129,6 +142,25 @@ const HeaderStyle = styled.header<HeaderStyleProps>`
         }
       }
     }
+  } */
+
+  .category {
+    ul {
+      display: flex;
+      gap: 32px;
+      li {
+        a {
+          font-size: 1.5rem;
+          font-weight: 600;
+          text-decoration: none;
+          color: ${({ theme }) => theme.color.text};
+          &:hover {
+            color: ${({ theme }) => theme.color.primary};
+          }
+        }
+      }
+    }
+    
   }
 
   .auth {
@@ -171,43 +203,41 @@ const HeaderStyle = styled.header<HeaderStyleProps>`
     img {
       width: 140px;
     }
-  }
-
-  .auth {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-  }
-
-  .category {
-    .menu-button {
-      display: flex;
+    .auth {
       position: absolute;
       top: 12px;
-      right: ${({ $isOpen }) => ($isOpen ? "62%" : "-52px")};
-      background: #fff;
-      border: 0;
-      font-size: 1.5rem;
+      right: 12px;
     }
-
-    ul {
-      position: fixed;
-      top: 0;
-      right: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};
-      width: 60%;
-      height: 100vh;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      transition: right 0.3s ease-in-out;
-
-      margin: 0;
-      padding: 24px;
-      z-index: 1000;
-
-      flex-direction: column;
-      gap: 16px;
+  
+    .category {
+      .menu-button {
+        display: flex;
+        position: absolute;
+        top: 12px;
+        background: #fff;
+        border: 0;
+        font-size: 1.5rem;
+      }
+  
+      ul {
+        position: fixed;
+        top: 0;
+        width: 60%;
+        height: 100vh;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: right 0.3s ease-in-out;
+  
+        margin: 0;
+        padding: 24px;
+        z-index: 1000;
+  
+        flex-direction: column;
+        gap: 16px;
+      }
     }
   }
+
 `;
 
 export default Header;

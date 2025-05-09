@@ -13,7 +13,7 @@ function Home() {
   
   return (
     <HomeStyle>
-      <Banner banners={banners} />
+      {/* <Banner banners={banners} />
 
       <section className="section">
         <Title size="large">베스트 셀러</Title>
@@ -28,7 +28,7 @@ function Home() {
       <section className="section">
         <Title size="large">리뷰</Title>
         <MainReview reviews={reviews} />
-      </section>
+      </section> */}
     </HomeStyle>
   );
 }

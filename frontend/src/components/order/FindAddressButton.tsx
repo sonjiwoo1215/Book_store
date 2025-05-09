@@ -32,9 +32,11 @@ function FindAddressButton({ onCompleted }: Props) {
   },[]);
 
   return (
-    <Button size="medium" scheme="normal">
-      주소 찾기
-    </Button>
+    // <Button size="medium" scheme="normal" onClick={handleOpen}>
+    //   주소 찾기
+    // </Button>
+    <button type="button" onClick={handleOpen}>주소 찾기</button>
+
   );
 }
 
